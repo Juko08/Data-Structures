@@ -40,6 +40,6 @@ After:  head ->  5 -> 10 -> 20 -> 30 -> nullptr
 
 The new node must point to the old first node **before** `head` is updated. If I replace `head` first without keeping the old address, I can lose access to the rest of the list. This is **O(1)** because I only change a couple pointers. I do not have to go through the list.
 
-## Part 6 — Insert at the End
+## P6
 
 When the list is empty, the new node becomes head. Otherwise I start at head, follow next until I find the final node, and attach the new node there. This also works for a one-node list. With just head, this is **O(N)** because I have to go through the list to find the end. Keeping a tail pointer would make insertion at the end **O(1)**.
