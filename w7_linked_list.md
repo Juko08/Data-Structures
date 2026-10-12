@@ -65,3 +65,37 @@ After:  10 -> 20 ------> 40 -> nullptr
 
 
 Deleting the head needs special handling because head must move to the second node. For other nodes, I find the previous node, connect it to the deleted node's successor, then call delete. I save the node address until the links have been repaired. A **memory leak** occurs when allocated memory becomes unreachable without being freed. Accessing a node after delete is unsafe because that pointer is dangling and the memory is no longer owned by the program. Empty lists and missing values return false.
+
+## P10
+
+I compiled and ran the program. The output below is what I got when I ran the program. It shows the list after the changes. `true` and `false` show whether searches, insertions, and removals succeeded.
+
+```text
+Initial list: (empty)
+Empty? true
+Remove 10 from empty: false
+Search 10 in empty: false
+Insert after 10 in empty: false
+After insertFront(30, 20, 10): 10 -> 20 -> 30 -> nullptr
+After insertBack(40, 50): 10 -> 20 -> 30 -> 40 -> 50 -> nullptr
+Search beginning (10): true
+Search middle (30): true
+Search end (50): true
+Search missing (99): false
+Insert after 20 (25): true
+After middle insertion: 10 -> 20 -> 25 -> 30 -> 40 -> 50 -> nullptr
+Insert after missing 99: false
+After failed insertion: 10 -> 20 -> 25 -> 30 -> 40 -> 50 -> nullptr
+Remove first (10): true
+After removing first: 20 -> 25 -> 30 -> 40 -> 50 -> nullptr
+Remove middle (30): true
+After removing middle: 20 -> 25 -> 40 -> 50 -> nullptr
+Remove last (50): true
+After removing last: 20 -> 25 -> 40 -> nullptr
+Remove missing (99): false
+Final list: 20 -> 25 -> 40 -> nullptr
+```
+
+## P11
+
+Every new allocation must eventually be matched with delete. The destructor walks through the remaining list, saves the current node, moves head to the next node, and deletes the saved node. If a program repeatedly allocates nodes without freeing them, unreachable allocations accumulate and waste memory. This matters with raw pointers because the nodes do not get freed just because the head pointer goes out of scope.

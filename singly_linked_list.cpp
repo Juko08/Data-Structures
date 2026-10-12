@@ -120,3 +120,31 @@ bool LinkedList::remove(int value) {
 
     return false;
 }
+// Part 10: Display all nodes in the list
+void LinkedList::display() const {
+    Node* temp = head;
+
+    if (temp == nullptr) {
+        cout << "List is empty" << endl;
+        return;
+    }
+
+    while (temp != nullptr) {
+        cout << temp->data << " -> ";
+        temp = temp->next;
+    }
+
+    cout << "nullptr" << endl;
+}
+// Part 11: Delete all remaining nodes
+LinkedList::~LinkedList() {
+    Node* temp = head;
+
+    while (temp != nullptr) {
+        Node* nextNode = temp->next;
+        delete temp;
+        temp = nextNode;
+    }
+
+    head = nullptr;
+}
