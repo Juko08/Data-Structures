@@ -135,3 +135,25 @@ A linked list can change connections without moving every element, but reaching 
 3. No. Searching still requires following nodes and is O(N) in the worst case.
 4. No. Deleting the last node by value still takes **O(N)** in the worst case.
 5. Even with tail, I cannot move backward to find the previous node. I must traverse from head to locate the node before the last one, then update tail and delete the old last node.
+
+## P15
+
+1. prev stores the address of the preceding node.
+2. The next and prev pointers let me move forward or backward.
+3. A doubly linked list needs an extra pointer per node, increasing memory usage.
+4. If I already have a pointer to a node, I can use prev and next to reconnect its neighbors without searching for the predecessor (assuming the list's boundary pointers are handled correctly). That can make deletion O(1).
+
+## P16
+
+1. `while (temp != nullptr)` would never stop in a nonempty circular list because the last node points back to head.
+2. I can stop when the traversal returns to head, after visiting each node once; an empty list must be checked separately.
+3. Circular lists naturally repeat through the same sequence without restarting from a null end.
+4. A round-robin scheduler is one example: after processing the final task, it returns to the first task.
+
+## A&R
+
+Linked lists do not need contiguous memory because each node stores a pointer to the next node. The head pointer is the starting point for accessing the list, so losing it can make every node unreachable. Traversal takes O(N) because I must visit nodes one by one. In my implementation, inserting at the beginning is O(1) because I only connect a new node to the old head and update head. Inserting at the end is O(N) without a tail because I must follow the links to find the last node.
+
+Deletion requires careful pointer changes so the remaining list stays connected. The tests show that removing the first, middle, and last nodes leaves the expected sequence. Allocated nodes also need to be deleted to avoid leaks, which is why I implemented the destructor. Binary search is not efficient on a linked list like it is on an indexed array because I cannot jump directly to the middle node; reaching it already requires traversal.
+
+I would choose a linked list when I need frequent insertions or deletions near the front or at nodes I already have pointers to. I would choose an array or vector when I need fast indexing, less memory overhead, or efficient sequential access. The part I had to pay the most attention to was the order of the pointer changes. If I change the wrong link first, I could lose part of the list.

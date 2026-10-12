@@ -148,3 +148,47 @@ LinkedList::~LinkedList() {
 
     head = nullptr;
 }
+// Part 10: Required operation tests
+int main() {
+    cout << boolalpha;
+    LinkedList list;
+    cout << "Initially empty: " << list.empty() << endl;
+    list.display();
+
+    list.insertFront(10);
+    cout << "After insertFront(10): "; list.display();
+    list.insertFront(20);
+    cout << "After insertFront(20): "; list.display();
+    list.insertFront(30);
+    cout << "After insertFront(30): "; list.display();
+
+    list.insertBack(40);
+    cout << "After insertBack(40): "; list.display();
+    list.insertBack(50);
+    cout << "After insertBack(50): "; list.display();
+
+    cout << "Search head (30): " << list.search(30) << endl;
+    cout << "Search middle (20): " << list.search(20) << endl;
+    cout << "Search tail (50): " << list.search(50) << endl;
+    cout << "Search missing (99): " << list.search(99) << endl;
+
+    cout << "Insert 25 after 20: " << list.insertAfter(20, 25) << endl;
+    list.display();
+    cout << "Insert after missing 99: " << list.insertAfter(99, 100) << endl;
+    list.display();
+
+    cout << "Remove head (30): " << list.remove(30) << endl;
+    list.display();
+    cout << "Remove middle (25): " << list.remove(25) << endl;
+    list.display();
+    cout << "Remove tail (50): " << list.remove(50) << endl;
+    list.display();
+    cout << "Remove missing (99): " << list.remove(99) << endl;
+    list.display();
+
+    LinkedList emptyList;
+    cout << "Remove from empty list: " << emptyList.remove(5) << endl;
+    emptyList.insertBack(7);
+    cout << "InsertBack into empty list: "; emptyList.display();
+    cout << "Final main list: "; list.display();
+    return 0;
