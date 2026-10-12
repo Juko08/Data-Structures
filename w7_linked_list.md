@@ -12,3 +12,12 @@ head
 5. Losing the head and having no other pointer to the nodes means I would lose access to them. That could cause a memory leak.
 
 P2
+For head -> 10  -> 20 ->  30 -> 40 -> nullptr:
+|Iteration|' temp->data'| Where 'temp->next' leads|
+|---------|-------------|-------------------------|
+|1        |10           |Node containing 20
+|2        |20           |Node containing 30
+|3        |30           |Node containing 40 
+|4        |40           |'nullptr
+
+The loops stops because  after visiting 40, temp becomes nullptr, making  the loop condition false. Going through the whole list O(N) since the loop has to visit every node.
