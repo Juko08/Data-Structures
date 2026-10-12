@@ -43,3 +43,25 @@ The new node must point to the old first node **before** `head` is updated. If I
 ## P6
 
 When the list is empty, the new node becomes head. Otherwise I start at head, follow next until I find the final node, and attach the new node there. This also works for a one-node list. With just head, this is **O(N)** because I have to go through the list to find the end. Keeping a tail pointer would make insertion at the end **O(1)**.
+
+## P7
+
+I compare each node's data to the requested value. Finding the first value takes **O(1)** (best case). Finding the last value, or confirming a missing value, takes **O(N)** (worst case). My tests cover values at the beginning, middle, end, and absent from the list.
+
+## P8
+
+
+Before: 10 -> 20 -> 30 -> 40 -> nullptr
+After:  10 -> 20 -> 25 -> 30 -> 40 -> nullptr
+
+
+After finding the target node, I first set the new node's next to the target's original next, then set the target's next to the new node. That preserves the rest of the list. Changing the pointers is **O(1)**, but looking for the target can take **O(N)**. If the target is missing, the function returns false without changing the list.
+
+## P9
+
+
+Before: 10 -> 20 -> 30 -> 40 -> nullptr
+After:  10 -> 20 ------> 40 -> nullptr
+
+
+Deleting the head needs special handling because head must move to the second node. For other nodes, I find the previous node, connect it to the deleted node's successor, then call delete. I save the node address until the links have been repaired. A **memory leak** occurs when allocated memory becomes unreachable without being freed. Accessing a node after delete is unsafe because that pointer is dangling and the memory is no longer owned by the program. Empty lists and missing values return false.
