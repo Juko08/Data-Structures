@@ -37,3 +37,26 @@ LinkedList::LinkedList() {
 bool LinkedList::empty() const {
     return head == nullptr;
 }
+// Part 5: Insert a node at the beginning
+void LinkedList::insertFront(int value) {
+    Node* newNode = new Node{value, head};
+    head = newNode;
+}
+
+// Part 6: Insert a node at the end
+void LinkedList::insertBack(int value) {
+    Node* newNode = new Node{value, nullptr};
+
+    if (head == nullptr) {
+        head = newNode;
+        return;
+    }
+
+    Node* temp = head;
+
+    while (temp->next != nullptr) {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+}
