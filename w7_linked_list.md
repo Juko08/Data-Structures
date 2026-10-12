@@ -1,4 +1,4 @@
-P1
+>>>P1<<<
 head
  |
  v
@@ -11,7 +11,7 @@ head
 4. third ->  next is nullptr
 5. Losing the head and having no other pointer to the nodes means I would lose access to them. That could cause a memory leak.
 
-P2
+>>>P2<<<
 For head -> 10  -> 20 ->  30 -> 40 -> nullptr:
 |Iteration|' temp->data'| Where 'temp->next' leads|
 |---------|-------------|-------------------------|
