@@ -99,3 +99,39 @@ Final list: 20 -> 25 -> 40 -> nullptr
 ## P11
 
 Every new allocation must eventually be matched with delete. The destructor walks through the remaining list, saves the current node, moves head to the next node, and deletes the saved node. If a program repeatedly allocates nodes without freeing them, unreachable allocations accumulate and waste memory. This matters with raw pointers because the nodes do not get freed just because the head pointer goes out of scope.
+
+## P12
+
+| Operation | Big-O | Reason |
+|---|---|---|
+| Access element at position i | O(N) | Follow links from the head up to position i; worst case is near the end. |
+| Search | O(N) | May examine every node to find a value or determine it is absent. |
+| Insert at beginning | O(1) | Change head and one next link without traversal. |
+| Insert at end | O(N) | Walk from head to the final node because there is no tail. |
+| Insert after specified value | O(N) | Search for the target; linking the new node itself is O(1). |
+| Delete first node | O(1) | Move head and delete the former first node. |
+| Delete specified value | O(N) | May have to search through the whole list before reconnecting links. |
+| Traverse entire list | O(N) | Visit each of the N nodes exactly once. |
+
+These are mostly worst-case times. Searching can finish in O(1) if the value is at the head.
+
+## P13
+
+| Comparison | Array / vector | Singly linked list |
+|---|---|---|
+| Access index N/2 | O(1), direct indexing | O(N), follow links |
+| Insert at beginning | O(N), shift elements | O(1), update head |
+| Remove first | O(N), shift elements | O(1), update head |
+| Search for value | O(N) if unsorted | O(N) |
+| Memory layout | Contiguous elements | Separate nodes connected by pointers |
+| Dynamic growth | Fixed array cannot resize; vector resizes by reallocating | Allocate individual nodes as needed |
+| Extra memory | Array: no pointer per element; vector: possible unused capacity | One next pointer per node, plus allocation overhead |
+
+A linked list can change connections without moving every element, but reaching an arbitrary position still requires following links from `head`. That is why random access is not O(1). A vector is usually better when I need to access items by index.
+
+## P14
+1. insertBack becomes significantly faster.
+2. It changes from O(N) to **O(1)** because the final node is directly accessible.
+3. No. Searching still requires following nodes and is O(N) in the worst case.
+4. No. Deleting the last node by value still takes **O(N)** in the worst case.
+5. Even with tail, I cannot move backward to find the previous node. I must traverse from head to locate the node before the last one, then update tail and delete the old last node.
